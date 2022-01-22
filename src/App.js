@@ -1,7 +1,11 @@
+import { Component } from "react";
 import "./App.css";
+import Searchbar from "./components/Searchbar";
 
-function App() {
-  return <h1>hello world</h1>;
+class App extends Component {
+  render() {
+    return <Searchbar></Searchbar>;
+  }
 }
 
 export default App;
