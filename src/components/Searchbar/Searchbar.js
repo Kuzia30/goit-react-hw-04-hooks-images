@@ -1,5 +1,12 @@
 import { Component } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
+import {
+  Searchbar,
+  SearchForm,
+  Button,
+  ButtonLabel,
+  Input,
+} from "./Searchbar.styled";
 
 class SearchBar extends Component {
   state = {
@@ -21,13 +28,13 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.handleSubmit}>
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
-          </button>
+      <Searchbar>
+        <SearchForm onSubmit={this.handleSubmit}>
+          <Button type="submit">
+            <ButtonLabel>Search</ButtonLabel>
+          </Button>
 
-          <input
+          <Input
             onChange={this.handleChange}
             value={this.state.searchName}
             className="input"
@@ -36,10 +43,14 @@ class SearchBar extends Component {
             autoFocus
             placeholder="Search images and photos"
           />
-        </form>
-      </header>
+        </SearchForm>
+      </Searchbar>
     );
   }
 }
 
 export default SearchBar;
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

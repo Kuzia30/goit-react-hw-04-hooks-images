@@ -1,6 +1,8 @@
 import { Component } from "react";
+import PropTypes from "prop-types";
 import ImageGalleryItem from "./ImageGalleryItem";
 import pixabayApi from "../../servises/pixabayApi";
+import { List } from "./ImageGallery.styled";
 
 class ImageGallery extends Component {
   state = {
@@ -16,13 +18,17 @@ class ImageGallery extends Component {
 
   render() {
     return (
-      <ul className="gallery">
+      <List>
         {this.state.pictures && (
           <ImageGalleryItem pictures={this.state.pictures} />
         )}
-      </ul>
+      </List>
     );
   }
 }
 
 export default ImageGallery;
+
+ImageGallery.propTypes = {
+  searchName: PropTypes.string.isRequired,
+};
