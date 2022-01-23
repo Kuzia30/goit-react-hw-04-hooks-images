@@ -2,7 +2,7 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 import ImageGalleryItem from "./ImageGalleryItem";
 import pixabayApi from "../../servises/pixabayApi";
-import { Oval } from "react-loader-spinner";
+import Loader from "../Loader";
 import { List } from "./ImageGallery.styled";
 
 class ImageGallery extends Component {
@@ -27,10 +27,12 @@ class ImageGallery extends Component {
         if (pictures.total === 0) {
           return await Promise.reject(new Error("Try another name"));
         }
-        this.setState((prevState) => ({
-          pictures: [...prevState.pictures, ...pictures.hits],
-          status: "resolved",
-        }));
+        setTimeout(() => {
+          this.setState((prevState) => ({
+            pictures: [...prevState.pictures, ...pictures.hits],
+            status: "resolved",
+          }));
+        }, 3000);
       } catch (error) {
         this.setState({ status: "rejected", error: error.message });
       }
@@ -70,11 +72,11 @@ class ImageGallery extends Component {
             <List>
               <ImageGalleryItem pictures={pictures} />
             </List>
-            <Oval color="#00BFFF" height={80} width={80} />
+            <Loader />
           </>
         );
       }
-      return <Oval color="#00BFFF" height={80} width={80} />;
+      return <Loader />;
     }
     if (status === "rejected") {
       return <h2>{error}</h2>;
