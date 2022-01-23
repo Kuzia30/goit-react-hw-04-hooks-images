@@ -1,4 +1,5 @@
 import { Component } from "react";
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./App.css";
 import Searchbar from "./components/Searchbar";
 import ImageGallery from "./components/ImageGallery";
