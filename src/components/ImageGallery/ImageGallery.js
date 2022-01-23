@@ -51,7 +51,10 @@ class ImageGallery extends Component {
       return (
         <>
           <List>
-            <ImageGalleryItem pictures={pictures} />
+            <ImageGalleryItem
+              pictures={pictures}
+              showPicture={this.props.showPicture}
+            />
           </List>
           <button type="button" onClick={() => this.handleLoadMore()}>
             Load more
