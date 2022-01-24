@@ -4,6 +4,7 @@ import ImageGalleryItem from "./ImageGalleryItem";
 import pixabayApi from "../../servises/pixabayApi";
 import Loader from "../Loader";
 import { List } from "./ImageGallery.styled";
+import Button from "../Button";
 
 class ImageGallery extends Component {
   state = {
@@ -27,12 +28,16 @@ class ImageGallery extends Component {
         if (pictures.total === 0) {
           return await Promise.reject(new Error("Try another name"));
         }
-        setTimeout(() => {
-          this.setState((prevState) => ({
+        this.setState((prevState) => {
+          // window.scrollBy({
+          //     top: 200,
+          //   behavior: "smooth",
+          // });
+          return {
             pictures: [...prevState.pictures, ...pictures.hits],
             status: "resolved",
-          }));
-        }, 3000);
+          };
+        });
       } catch (error) {
         this.setState({ status: "rejected", error: error.message });
       }
@@ -58,9 +63,7 @@ class ImageGallery extends Component {
               showPicture={this.props.showPicture}
             />
           </List>
-          <button type="button" onClick={() => this.handleLoadMore()}>
-            Load more
-          </button>
+          <Button onLoadMore={() => this.handleLoadMore()} />
         </>
       );
     }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { BsSearch } from 'react-icons/bs';
 export const Searchbar = styled.header`
     top: 0;
   left: 0;
@@ -34,7 +34,6 @@ export const Button = styled.button`
   width: 48px;
   height: 48px;
   border: 0;
-  background-image: url("");
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
@@ -48,17 +47,11 @@ export const Button = styled.button`
 }
 `;
 
-export const ButtonLabel = styled.span`
-position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
-  border: 0;
+export const Icon = styled(BsSearch)`
+
+  color: red;  
 `;
+
 
 export const Input = styled.input`
 display: inline-block;

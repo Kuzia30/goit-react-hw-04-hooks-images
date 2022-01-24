@@ -18,5 +18,5 @@ export default ImageGalleryItem;
 
 ImageGalleryItem.propTypes = {
   pictures: PropTypes.array.isRequired,
-  showPicture: PropTypes.func.isRequired,
+  showPicture: PropTypes.func,
 };

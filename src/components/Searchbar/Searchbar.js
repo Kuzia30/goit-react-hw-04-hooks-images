@@ -1,12 +1,6 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  Searchbar,
-  SearchForm,
-  Button,
-  ButtonLabel,
-  Input,
-} from "./Searchbar.styled";
+import { Searchbar, SearchForm, Button, Icon, Input } from "./Searchbar.styled";
 
 class SearchBar extends Component {
   state = {
@@ -20,7 +14,7 @@ class SearchBar extends Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
     if (this.state.searchName.trim() === "") {
-      return alert("AAAAAAAAA");
+      return;
     }
     this.props.onSubmit(this.state.searchName);
     this.setState({ searchName: "" });
@@ -31,7 +25,7 @@ class SearchBar extends Component {
       <Searchbar>
         <SearchForm onSubmit={this.handleSubmit}>
           <Button type="submit">
-            <ButtonLabel>Search</ButtonLabel>
+            <Icon />
           </Button>
 
           <Input
