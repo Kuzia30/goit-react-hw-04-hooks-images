@@ -15,10 +15,29 @@ class ImageGallery extends Component {
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.searchName !== this.props.searchName ||
-      prevState.page !== this.state.page
-    ) {
+    if (prevProps.searchName !== this.props.searchName) {
+      try {
+        this.setState({ status: "pending" });
+        const pictures = await pixabayApi(this.props.searchName, 1);
+        if (pictures.total === 0) {
+          return await Promise.reject(new Error("Try another name"));
+        }
+        this.setState((prevState) => {
+          window.scrollBy({
+            top: 200,
+            behavior: "smooth",
+          });
+          return {
+            pictures: pictures.hits,
+            status: "resolved",
+          };
+        });
+      } catch (error) {
+        this.setState({ status: "rejected", error: error.message });
+      }
+    }
+
+    if (prevState.page !== this.state.page) {
       try {
         this.setState({ status: "pending" });
         const pictures = await pixabayApi(
