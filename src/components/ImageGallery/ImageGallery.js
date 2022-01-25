@@ -22,15 +22,9 @@ class ImageGallery extends Component {
         if (pictures.total === 0) {
           return await Promise.reject(new Error("Try another name"));
         }
-        this.setState((prevState) => {
-          window.scrollBy({
-            top: 200,
-            behavior: "smooth",
-          });
-          return {
-            pictures: pictures.hits,
-            status: "resolved",
-          };
+        this.setState({
+          pictures: pictures.hits,
+          status: "resolved",
         });
       } catch (error) {
         this.setState({ status: "rejected", error: error.message });
@@ -48,10 +42,10 @@ class ImageGallery extends Component {
           return await Promise.reject(new Error("Try another name"));
         }
         this.setState((prevState) => {
-          // window.scrollBy({
-          //     top: 200,
-          //   behavior: "smooth",
-          // });
+          window.scrollBy({
+            top: 200,
+            behavior: "smooth",
+          });
           return {
             pictures: [...prevState.pictures, ...pictures.hits],
             status: "resolved",
