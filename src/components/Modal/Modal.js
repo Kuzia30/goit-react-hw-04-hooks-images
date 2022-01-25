@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Overlay, ModalWrap } from "./Modal.styled";
+import PropTypes from "prop-types";
 
 class Modal extends Component {
   componentDidMount() {
@@ -31,3 +32,7 @@ class Modal extends Component {
   }
 }
 export default Modal;
+
+Modal.propTypes = {
+  onToggle: PropTypes.func.isRequired,
+};
