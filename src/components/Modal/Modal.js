@@ -1,38 +1,36 @@
-import { Component } from "react";
+import { useEffect } from "react";
 import { Overlay, ModalWrap } from "./Modal.styled";
 import PropTypes from "prop-types";
 
-class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener("keydown", this.handleKeydown);
-  }
+function Modal({ onToggle, children }) {
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeydown);
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  });
 
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.handleKeydown);
-  }
-
-  handleKeydown = (evt) => {
+  const handleKeydown = (evt) => {
     if (evt.code === "Escape") {
-      this.props.onToggle();
+      onToggle();
     }
   };
 
-  handleBackdropClick = (evt) => {
+  const handleBackdropClick = (evt) => {
     if (evt.currentTarget === evt.target) {
-      this.props.onToggle();
+      onToggle();
     }
   };
 
-  render() {
-    return (
-      <Overlay onClick={this.handleBackdropClick}>
-        <ModalWrap>{this.props.children}</ModalWrap>
-      </Overlay>
-    );
-  }
+  return (
+    <Overlay onClick={handleBackdropClick}>
+      <ModalWrap>{children}</ModalWrap>
+    </Overlay>
+  );
 }
 export default Modal;
 
 Modal.propTypes = {
   onToggle: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };

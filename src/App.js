@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useState } from "react";
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./App.css";
 import Searchbar from "./components/Searchbar";
@@ -6,44 +6,46 @@ import ImageGallery from "./components/ImageGallery";
 import Modal from "./components/Modal";
 import { AppWrap } from "./App.styled";
 
-class App extends Component {
-  state = {
-    searchName: "",
-    showModal: false,
-    card: {},
+function App() {
+  const [searchName, setSearchName] = useState("");
+  const [page, setPage] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const [card, setCard] = useState({});
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
 
-  toggleModal = () => {
-    this.setState({ showModal: !this.state.showModal });
+  const handleFormSubmit = (name) => {
+    setSearchName(name);
+    setPage(1);
   };
 
-  handleFormSubmit = (searchName) => {
-    this.setState({ searchName });
-  };
-
-  showPicture = (evt) => {
-    this.toggleModal();
-    const card = {
+  const showPicture = (evt) => {
+    toggleModal();
+    const cardEl = {
       largeImageURL: evt.currentTarget.dataset.url,
       alt: evt.currentTarget.alt,
     };
-    this.setState({ card });
+    setCard(cardEl);
   };
 
-  render() {
-    const { card, searchName } = this.state;
-    return (
-      <AppWrap>
-        {this.state.showModal && (
-          <Modal onToggle={this.toggleModal}>
-            <img src={card.largeImageURL} alt={card.alt} />
-          </Modal>
-        )}
-        <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery searchName={searchName} showPicture={this.showPicture} />
-      </AppWrap>
-    );
-  }
+  return (
+    <AppWrap>
+      {showModal && (
+        <Modal onToggle={toggleModal}>
+          <img src={card.largeImageURL} alt={card.alt} />
+        </Modal>
+      )}
+      <Searchbar onSubmit={handleFormSubmit} />
+      <ImageGallery
+        searchName={searchName}
+        showPicture={showPicture}
+        incrementPage={() => setPage(page + 1)}
+        page={page}
+      />
+    </AppWrap>
+  );
 }
 
 export default App;
